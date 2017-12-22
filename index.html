@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Prison Escape</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="favicon.ico">
+		
+
+        <!-- Insert Bootstrap styles from CDN -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" 
+                integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <style type="text/css">
+            .console {
+                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                background: rgb(1, 20, 15);
+                color: white;
+                height: 400px;
+                overflow-y:scroll;
+            }
+
+            
+            body {
+                background-image: url(img/background.jpg);
+            }
+
+            h1 {
+                color: #FFFFFF;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                font-size: 60px;
+            }
+            
+
+        </style>
+
+        <embed  autostart="true" loop="true"
+               width="2" height="0">
+        </embed>
+
+	</head>
+
+	<body>
+        <div>
+                
+            <div class="container">
+                <h1>Escape the mad house</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></div>
+                <div id="game_console" class="panel-body console">
+                </div>
+                <div class="panel-footer">
+                    <input id="command" type="text" class="form-control" placeholder="Type command..." autofocus>
+                </div>
+            </div>
+        </div>
+
+		<script src="main.js"></script>
+        <script>
+            var game = new Game(document.getElementById("game_console"),
+                                document.getElementById("command"));
+        </script>
+	</body>
+</html>
