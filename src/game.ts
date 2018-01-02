@@ -42,11 +42,11 @@ class Game {
     createRooms() : void {
         // creating Rooms
         let mainHall = new Room("You are in the main hall. It is dark, it's hard to see in here.");
-        let restroom = new Room("You are in a restroom, it smells really bad in here.");
+        let restroom = new Room("You are in a restroom, it smells really bad in here, you don't know what it is.");
         let closet = new Room("You are in a closet, you see a key on the ground.");
         let livingRoom = new Room("You are in the living room, nothing seems unusual.");
         let dollRoom = new Room("You are the doll room, you see a lot of creepy dolls staring at you.");
-        let paintingRoom = new Room("You are in some sort of painting room.");
+        let paintingRoom = new Room("You are in some sort of painting room, the paintings look creepy.");
         let kitchen = new Room("You are in the Kitchen");
         let dogRoom = new Room("You are in the dog room, you see a vicious dog, you need to distract it with some food.");
         let backyard = new Room("You are in the backyard, you can almost smell the freedom");

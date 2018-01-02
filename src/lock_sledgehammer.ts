@@ -15,8 +15,8 @@ class LockedDoorSledgehammer extends Door {
         if (missingItems.length == 0) {
             return;
         }
-
-        throw new DoorLockedError("You need " + missingItems.join(", ") + " to enter");
+		// Missing item error 
+        throw new DoorLockedError("You need " + missingItems.join(", ") + " to continue");
     }
 }
 
