@@ -1,6 +1,6 @@
 class DoorLockedError extends Error {
-    constructor(m: string) {
-        super(m);
+    constructor(x: string) {
+        super(x);
 
         (<any>this).__proto__ = DoorLockedError.prototype;
     }

@@ -86,7 +86,7 @@ class Game {
         backyard.addDoor("south", new Door(dogRoom));
 
 
-        //items
+        //items             object of items class
         kitchen.inventory = new Item("lockpick");
         closet.inventory = new Item("key");
         paintingRoom.inventory = new Item("sledgehammer");
@@ -117,7 +117,7 @@ class Game {
 
     gameOver() : void {
         this.isOn = false;
-        this.out.println("Thank you for playing.  Good bye.");
+        this.out.println("Thank you for playing. Good bye.");
         this.out.println("Hit F5 to restart the game");
     }
 
@@ -221,7 +221,7 @@ class Game {
         }
 
         if(params.length == 0) {
-            // if there is no second word, we don't know where to go...
+            // "error message" when they don't fill in anything
             this.out.println("Get what?");
             return;
         }
@@ -235,11 +235,12 @@ class Game {
             case("sledgehammer") :
             case("toothpick") :
             case("key") :
+                // Putting the picked up item into the item Array
+                this.out.print("You picked up a " + this.currentRoom.inventory.description);
                 this.allItems.push(this.currentRoom.inventory.description);
                 this.currentRoom.inventory = null;
                 break;
         }
-        this.out.print("You picked up a " + this.allItems);
         this.out.println();
 
         console.log(this.allItems);
@@ -250,10 +251,13 @@ class Game {
 
         let allItems = params[0];
 
+        // Showing items
         if(this.allItems != null){
             this.out.print("You're items: " + this.allItems);
             this.out.println();
         }
+
+        // When you don't have any items
         else {
             this.out.print("You don't have items");
             this.out.println();
@@ -286,6 +290,7 @@ class Game {
      * @return true, if this command quits the game, false otherwise.
      */
     quit(params : string[]) : boolean {
+        //Weet niet waarom deze if statement erin zit
         if(params.length > 0) {
             this.out.println("Quit what?");
             return false;
