@@ -9,16 +9,54 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var Character = (function () {
-    function Character(name, description, age) {
+    function Character(name, description, age, isEvil) {
         this.name = name;
         this.description = description;
         this.age = age;
+        this.isEvil = isEvil;
     }
     Character.prototype.greet = function () {
-        return "Hello there, my name is " + this.name + " I am " + this.description + " and I am " + this.age + " years old";
+        var tekst = '"Hello there, my name is ' + this.name + ' I am ' + this.description + ' and I am ' + this.age + ' years old." <br/>';
+        if (this.isEvil) {
+            return tekst + "Watch out, he's evil!";
+        }
+        else {
+            return tekst + "Don't worry, he's a good guy. <br/>";
+        }
+    };
+    Character.prototype.roar = function () {
     };
     return Character;
 }());
+var Enemy = (function (_super) {
+    __extends(Enemy, _super);
+    function Enemy(name, description, age, isEvil) {
+        return _super.call(this, name, description, age, isEvil) || this;
+    }
+    Enemy.prototype.greet = function () {
+        return _super.prototype.greet.call(this);
+    };
+    Enemy.prototype.roar = function () {
+        return '"RAAAAWR!!!" <br/>';
+    };
+    return Enemy;
+}(Character));
+var Ally = (function (_super) {
+    __extends(Ally, _super);
+    function Ally(name, description, age, isEvil) {
+        return _super.call(this, name, description, age, isEvil) || this;
+    }
+    Ally.prototype.greet = function () {
+        return _super.prototype.greet.call(this);
+    };
+    Ally.prototype.roar = function () {
+        return '"HiiiiiiI!" <br/>';
+    };
+    Ally.prototype.support = function () {
+        return "You can do it!";
+    };
+    return Ally;
+}(Character));
 var DoorLockedError = (function (_super) {
     __extends(DoorLockedError, _super);
     function DoorLockedError(x) {
@@ -36,20 +74,11 @@ var Door = (function () {
     };
     return Door;
 }());
-var Enemy = (function (_super) {
-    __extends(Enemy, _super);
-    function Enemy(name, description, age) {
-        return _super.call(this, name, description, age) || this;
-    }
-    Enemy.prototype.greet = function () {
-        return _super.prototype.greet.call(this);
-    };
-    return Enemy;
-}(Character));
 var Game = (function () {
     function Game(output, input) {
         this.allItems = [];
-        this.elf = new Enemy("Zork", "a bloodelf with a tiny heart", 44);
+        this.elf = new Enemy("Zork", "a bloodelf with a tiny heart", 23, true);
+        this.twink = new Ally("Twinkel", " a cute little fairy", 12, false);
         this.parser = new Parser(this, input);
         this.out = new Printer(output);
         this.isOn = true;
@@ -58,8 +87,8 @@ var Game = (function () {
     }
     Game.prototype.createRooms = function () {
         var mainHall = new Room("You are in the main hall. It is dark, it's hard to see in here.");
-        var restroom = new Room("You are in a restroom, it smells really bad in here, you don't know what it is , you see someone... He speaks: " + this.elf.greet());
-        var closet = new Room("You are in a closet, you see a key on the ground.");
+        var restroom = new Room("You are in a restroom, it smells really bad in here. You see someone... He speaks:" + '<br/>' + this.elf.roar() + this.elf.greet());
+        var closet = new Room("You are in a closet, you see a key on the ground. There is a fairy here! He says: " + '<br/>' + this.twink.roar() + this.twink.greet() + this.twink.support());
         var livingRoom = new Room("You are in the living room, nothing seems unusual.");
         var dollRoom = new Room("You are the doll room, you see a lot of creepy dolls staring at you.");
         var paintingRoom = new Room("You are in some sort of painting room, the paintings look creepy.");
