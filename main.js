@@ -8,10 +8,21 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var Character = (function () {
+    function Character(name, description, age) {
+        this.name = name;
+        this.description = description;
+        this.age = age;
+    }
+    Character.prototype.greet = function () {
+        return "Hello there, my name is " + this.name + " I am " + this.description + " and I am " + this.age + " years old";
+    };
+    return Character;
+}());
 var DoorLockedError = (function (_super) {
     __extends(DoorLockedError, _super);
-    function DoorLockedError(m) {
-        var _this = _super.call(this, m) || this;
+    function DoorLockedError(x) {
+        var _this = _super.call(this, x) || this;
         _this.__proto__ = DoorLockedError.prototype;
         return _this;
     }
@@ -25,9 +36,20 @@ var Door = (function () {
     };
     return Door;
 }());
+var Enemy = (function (_super) {
+    __extends(Enemy, _super);
+    function Enemy(name, description, age) {
+        return _super.call(this, name, description, age) || this;
+    }
+    Enemy.prototype.greet = function () {
+        return _super.prototype.greet.call(this);
+    };
+    return Enemy;
+}(Character));
 var Game = (function () {
     function Game(output, input) {
         this.allItems = [];
+        this.elf = new Enemy("Zork", "a bloodelf with a tiny heart", 44);
         this.parser = new Parser(this, input);
         this.out = new Printer(output);
         this.isOn = true;
@@ -36,11 +58,11 @@ var Game = (function () {
     }
     Game.prototype.createRooms = function () {
         var mainHall = new Room("You are in the main hall. It is dark, it's hard to see in here.");
-        var restroom = new Room("You are in a restroom, it smells really bad in here.");
+        var restroom = new Room("You are in a restroom, it smells really bad in here, you don't know what it is , you see someone... He speaks: " + this.elf.greet());
         var closet = new Room("You are in a closet, you see a key on the ground.");
         var livingRoom = new Room("You are in the living room, nothing seems unusual.");
         var dollRoom = new Room("You are the doll room, you see a lot of creepy dolls staring at you.");
-        var paintingRoom = new Room("You are in some sort of painting room.");
+        var paintingRoom = new Room("You are in some sort of painting room, the paintings look creepy.");
         var kitchen = new Room("You are in the Kitchen");
         var dogRoom = new Room("You are in the dog room, you see a vicious dog, you need to distract it with some food.");
         var backyard = new Room("You are in the backyard, you can almost smell the freedom");
@@ -72,7 +94,7 @@ var Game = (function () {
         closet.inventory = new Item("key");
         paintingRoom.inventory = new Item("sledgehammer");
         dollRoom.inventory = new Item("baby");
-        mainHall.inventory = new Item("toothpic");
+        mainHall.inventory = new Item("toothpick");
         this.currentRoom = mainHall;
     };
     Game.prototype.printWelcome = function () {
@@ -91,7 +113,7 @@ var Game = (function () {
     };
     Game.prototype.gameOver = function () {
         this.isOn = false;
-        this.out.println("Thank you for playing.  Good bye.");
+        this.out.println("Thank you for playing. Good bye.");
         this.out.println("Hit F5 to restart the game");
     };
     Game.prototype.printError = function (params) {
@@ -164,11 +186,11 @@ var Game = (function () {
             case ("sledgehammer"):
             case ("toothpick"):
             case ("key"):
+                this.out.print("You picked up a " + this.currentRoom.inventory.description);
                 this.allItems.push(this.currentRoom.inventory.description);
                 this.currentRoom.inventory = null;
                 break;
         }
-        this.out.print("You picked up a " + this.allItems);
         this.out.println();
         console.log(this.allItems);
         return false;
@@ -236,7 +258,7 @@ var LockedDoorBaby = (function (_super) {
         if (missingItems.length == 0) {
             return;
         }
-        throw new DoorLockedError("You need " + missingItems.join(", ") + " to enter");
+        throw new DoorLockedError("You need " + missingItems.join(", ") + " to continue");
     };
     return LockedDoorBaby;
 }(Door));
@@ -259,7 +281,7 @@ var LockedDoorKey = (function (_super) {
         if (missingItems.length == 0) {
             return;
         }
-        throw new DoorLockedError("You need " + missingItems.join(", ") + " to enter");
+        throw new DoorLockedError("You need " + missingItems.join(", ") + " to continue");
     };
     return LockedDoorKey;
 }(Door));
@@ -282,7 +304,7 @@ var LockedDoorLockpick = (function (_super) {
         if (missingItems.length == 0) {
             return;
         }
-        throw new DoorLockedError("You need " + missingItems.join(", ") + " to enter");
+        throw new DoorLockedError("You need " + missingItems.join(", ") + " to continue");
     };
     return LockedDoorLockpick;
 }(Door));
@@ -305,7 +327,7 @@ var LockedDoorSledgehammer = (function (_super) {
         if (missingItems.length == 0) {
             return;
         }
-        throw new DoorLockedError("You need " + missingItems.join(", ") + " to enter");
+        throw new DoorLockedError("You need " + missingItems.join(", ") + " to continue");
     };
     return LockedDoorSledgehammer;
 }(Door));
@@ -328,7 +350,7 @@ var LockedDoorToothpick = (function (_super) {
         if (missingItems.length == 0) {
             return;
         }
-        throw new DoorLockedError("You need " + missingItems.join(", ") + " to enter");
+        throw new DoorLockedError("You need " + missingItems.join(", ") + " to continue");
     };
     return LockedDoorToothpick;
 }(Door));

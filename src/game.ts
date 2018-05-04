@@ -24,7 +24,8 @@ class Game {
     allItems : Array<String> = [];
 
     isOn : boolean;
-
+    
+    elf = new Enemy("Zork", "a bloodelf with a tiny heart", 44)
     /**
      * Create the game and initialise its internal map.
      */
@@ -36,13 +37,15 @@ class Game {
         this.printWelcome();
     }
 
+    
+
     /**
      * Making all rooms and connecting them through doors
      */
     createRooms() : void {
         // creating Rooms
         let mainHall = new Room("You are in the main hall. It is dark, it's hard to see in here.");
-        let restroom = new Room("You are in a restroom, it smells really bad in here, you don't know what it is.");
+        let restroom = new Room("You are in a restroom, it smells really bad in here, you don't know what it is , you see someone... He speaks: " + this.elf.greet());
         let closet = new Room("You are in a closet, you see a key on the ground.");
         let livingRoom = new Room("You are in the living room, nothing seems unusual.");
         let dollRoom = new Room("You are the doll room, you see a lot of creepy dolls staring at you.");
